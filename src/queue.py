@@ -86,23 +86,40 @@ class Queue(Generic[T]):
         """Make a new queue."""
         # FIXME: code here
         ...
+        self.queue=DLList[T]
+
 
     def is_empty(self) -> bool:
         """Check if this queue is empty."""
         # FIXME: code here
         ...
+        if self.queue.head.next==self.queue.head:
+            return 'Its empty'
+        else:
+            return 'values happen, yes'
 
     def enqueue(self, x: T) -> None:
         """Add x to the back of this queue."""
         # FIXME: code here
         ...
+        new_link = Link(x, self.queue.head.prev, self.queue.head.next)
+        new_link.prev.next = new_link
+        new_link.next.prev = new_link
+
 
     def front(self) -> T:
         """Get the front element of the queue."""
         # FIXME: code here
         ...
+        return self.queue.head.next.val
+
 
     def dequeue(self) -> T:
         """Get the front element, remove it from the queue, and return it."""
         # FIXME: code here
         ...
+        temp = self.queue.head.next
+        self.queue.head.next.prev=self.queue.head.prev
+        self.queue.head.prev.next=self.queue.head.next
+
+        return temp
